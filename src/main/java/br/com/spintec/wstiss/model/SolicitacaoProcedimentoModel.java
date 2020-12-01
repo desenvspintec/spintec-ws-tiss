@@ -1,6 +1,6 @@
 package br.com.spintec.wstiss.model;
 
-import br.gov.ans.padroes.tiss.schemas.*;
+import br.gov.ans.padroes.tiss.schemas.v30500.*;
 import lombok.Data;
 
 import javax.xml.datatype.XMLGregorianCalendar;

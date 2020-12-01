@@ -5,12 +5,12 @@ import br.com.spintec.wstiss.core.builder.MensagemTissWSBuilder;
 import br.com.spintec.wstiss.core.builder.MensagemTissWsBuilderFactory;
 import br.com.spintec.wstiss.core.config.MensagemTissWSConfig;
 import br.com.spintec.wstiss.core.config.MensagemTissWSConfigFactory;
-import br.gov.ans.padroes.tiss.schemas.api.CabecalhoTransacaoTISSI;
-import br.gov.ans.padroes.tiss.schemas.api.MensagemTissWSI;
+import br.gov.ans.padroes.tiss.schemas.v30500.CabecalhoTransacao;
+import br.gov.ans.padroes.tiss.schemas.v30500.ISolicitacao;
 
 import java.util.Optional;
 
-public class TissWsClient<MensagemWS extends MensagemTissWSI, MensagemObj, Response> {
+public class TissWsClient<MensagemWS extends ISolicitacao, MensagemObj, Response> {
 
     private final MensagemTissWsBuilderFactory builderFactory = new MensagemTissWsBuilderFactory();
 
@@ -27,8 +27,8 @@ public class TissWsClient<MensagemWS extends MensagemTissWSI, MensagemObj, Respo
     }
 
     private Response chamarWS(MensagemWS mensagemTiss, MensagemTissWSConfig<Object, Response, MensagemWS> conf) throws Throwable {
-        final CabecalhoTransacaoTISSI cabecalho = mensagemTiss.getCabecalho();
-        Optional.ofNullable(cabecalho).map(CabecalhoTransacaoTISSI::getNrANSDestino)
+        final CabecalhoTransacao cabecalho = mensagemTiss.getCabecalho();
+        Optional.ofNullable(cabecalho.getDestino()).map(CabecalhoTransacao.Destino::getRegistroANS)
                 .orElseThrow(() -> new IllegalArgumentException("O registro ANS da operadora precisa ser definido no cabeçalho da mensagem TISS"));
 
         final String wsUrl = conf.getUrlWs();

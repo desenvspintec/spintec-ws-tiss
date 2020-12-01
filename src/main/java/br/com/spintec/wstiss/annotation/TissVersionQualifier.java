@@ -1,7 +1,5 @@
 package br.com.spintec.wstiss.annotation;
 
-import br.gov.ans.padroes.tiss.schemas.api.MensagemTissWSI;
-
 import javax.enterprise.util.AnnotationLiteral;
 
 public class TissVersionQualifier extends AnnotationLiteral<TissVersion> implements TissVersion {
@@ -11,16 +9,16 @@ public class TissVersionQualifier extends AnnotationLiteral<TissVersion> impleme
      */
     private static final long serialVersionUID = 4699092746227994838L;
 
-    private final Class<? extends MensagemTissWSI> tipoMensagemWS;
+    private final Class<?> tipoMensagemWS;
     private final String versaoTiss;
 
-    public TissVersionQualifier(Class<? extends MensagemTissWSI> tipoMensagemWS, String versaoTiss) {
+    public TissVersionQualifier(Class<?> tipoMensagemWS, String versaoTiss) {
         this.tipoMensagemWS = tipoMensagemWS;
         this.versaoTiss = versaoTiss;
     }
 
     @Override
-    public Class<? extends MensagemTissWSI> tipoMensagem() {
+    public Class<?> tipoMensagem() {
         return tipoMensagemWS;
     }
 

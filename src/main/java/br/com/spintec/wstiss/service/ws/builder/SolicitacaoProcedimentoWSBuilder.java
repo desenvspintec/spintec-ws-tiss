@@ -6,22 +6,21 @@ import br.com.spintec.wstiss.model.IdentificacaoPrestadorModel;
 import br.com.spintec.wstiss.model.SolicitacaoProcedimentoModel;
 import br.com.spintec.wstiss.utils.CalculoHash;
 import br.com.spintec.wstiss.utils.tiss.CabecalhoTransacaoBuilder;
-import br.gov.ans.padroes.tiss.schemas.api.MensagemTissWSI;
-import br.gov.ans.padroes.tiss.schemas.api.PedidoSolicitacaoProcedimentoWSI;
-import br.gov.ans.padroes.tiss.schemas.*;
+import br.gov.ans.padroes.tiss.schemas.v30500.*;
 import com.google.common.base.Strings;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-@TissVersion(tipoMensagem = PedidoSolicitacaoProcedimentoWSI.class, versao = "3.05.00")
-public class SolicitacaoProcedimentoWSBuilder implements MensagemTissWSBuilder<MensagemTissWSI, SolicitacaoProcedimentoModel> {
+@TissVersion(tipoMensagem = SolicitacaoProcedimentoWS.class, versao = "3.05.00")
+public class SolicitacaoProcedimentoWSBuilder implements MensagemTissWSBuilder<SolicitacaoProcedimentoWS, SolicitacaoProcedimentoModel> {
 
     private final CabecalhoTransacaoBuilder cabecalhoBuilder = new CabecalhoTransacaoBuilder();
 
     @Override
-    public PedidoSolicitacaoProcedimentoWSI builder(SolicitacaoProcedimentoModel solicitacaoProcedimento) {
+    public SolicitacaoProcedimentoWS builder(SolicitacaoProcedimentoModel solicitacaoProcedimento) {
         final SolicitacaoProcedimentoWS solicitacaoProcedimentoWS = new SolicitacaoProcedimentoWS();
 
         final CabecalhoTransacao cabecalho = criarCabecalho(solicitacaoProcedimento);
@@ -65,8 +64,11 @@ public class SolicitacaoProcedimentoWSBuilder implements MensagemTissWSBuilder<M
         CtmSpSadtSolicitacaoGuia.ProcedimentosSolicitados procedimentosSolicitados = new CtmSpSadtSolicitacaoGuia.ProcedimentosSolicitados();
         procedimentosSolicitados.setProcedimento(ctProcedimentoDados);
 
+        List<CtmSpSadtSolicitacaoGuia.ProcedimentosSolicitados> procedimentosSolicitadosList = new ArrayList<>();
+        procedimentosSolicitadosList.add(procedimentosSolicitados);
+
         List<CtmSpSadtSolicitacaoGuia.ProcedimentosSolicitados> spSadtProcedimentos = solicitacaoProcedimentoModel.getProcedimentosSolicitadosList();
-        spSadtProcedimentos.add(procedimentosSolicitados);
+        solicitacaoProcedimentoModel.setProcedimentosSolicitadosList(procedimentosSolicitadosList);
 
         CtmSpSadtSolicitacaoGuia ctmSpSadtSolicitacaoGuia = new CtmSpSadtSolicitacaoGuia();
         ctmSpSadtSolicitacaoGuia.setDadosBeneficiario(ctBeneficiarioDados);

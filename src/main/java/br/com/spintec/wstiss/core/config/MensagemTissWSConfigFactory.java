@@ -2,7 +2,7 @@ package br.com.spintec.wstiss.core.config;
 
 import br.com.spintec.wstiss.annotation.TissVersion;
 import br.com.spintec.wstiss.annotation.TissVersionQualifier;
-import br.gov.ans.padroes.tiss.schemas.api.MensagemTissWSI;
+import br.gov.ans.padroes.tiss.schemas.v30500.ISolicitacao;
 import lombok.extern.slf4j.Slf4j;
 import org.reflections.Reflections;
 
@@ -15,7 +15,7 @@ public class MensagemTissWSConfigFactory {
 
     @SuppressWarnings("unchecked")
     public <PortType, Response, Mensagem> MensagemTissWSConfig<PortType, Response, Mensagem>
-    getConfiguration(Class<? extends MensagemTissWSI> tipoMensagem, String versao) {
+    getConfiguration(Class<? extends ISolicitacao> tipoMensagem, String versao) {
         final List<MensagemTissWSConfig<?, ?, ?>> selected = select(new TissVersionQualifier(tipoMensagem, versao));
 
         if (selected.isEmpty()) {

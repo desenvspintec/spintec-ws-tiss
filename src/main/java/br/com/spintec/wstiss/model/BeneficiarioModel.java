@@ -1,6 +1,6 @@
 package br.com.spintec.wstiss.model;
 
-import br.gov.ans.padroes.tiss.schemas.DmSimNao;
+import br.gov.ans.padroes.tiss.schemas.v30500.DmSimNao;
 import lombok.Data;
 
 import java.util.Date;

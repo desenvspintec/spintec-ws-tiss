@@ -3,21 +3,23 @@ package br.com.spintec.wstiss.service;
 import br.com.spintec.wstiss.core.TissWsClient;
 import br.com.spintec.wstiss.model.SolicitacaoProcedimentoModel;
 import br.com.spintec.wstiss.model.response.SolicitacaoProcedimentoResponseModel;
-import br.gov.ans.padroes.tiss.schemas.api.PedidoSolicitacaoProcedimentoWSI;
-import br.gov.ans.padroes.tiss.schemas.api.RespostaAutorizacaoProcedimentoWSI;
+import br.gov.ans.padroes.tiss.schemas.v30500.AutorizacaoProcedimentoWS;
+import br.gov.ans.padroes.tiss.schemas.v30500.SolicitacaoProcedimentoWS;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class SolicitacaoProcedimentoService {
-    private TissWsClient<PedidoSolicitacaoProcedimentoWSI, SolicitacaoProcedimentoModel, RespostaAutorizacaoProcedimentoWSI> clientWS = new TissWsClient<>();
+    private TissWsClient<SolicitacaoProcedimentoWS, SolicitacaoProcedimentoModel, AutorizacaoProcedimentoWS> clientWS = new TissWsClient<>();
 
-    public SolicitacaoProcedimentoResponseModel<RespostaAutorizacaoProcedimentoWSI> enviarSolicitacao(SolicitacaoProcedimentoModel solicitacaoProcedimento) {
-        SolicitacaoProcedimentoResponseModel<RespostaAutorizacaoProcedimentoWSI> retorno = new SolicitacaoProcedimentoResponseModel<>();
+    public SolicitacaoProcedimentoResponseModel<AutorizacaoProcedimentoWS> enviarSolicitacao(SolicitacaoProcedimentoModel solicitacaoProcedimento) {
+        SolicitacaoProcedimentoResponseModel<AutorizacaoProcedimentoWS> retorno = new SolicitacaoProcedimentoResponseModel<>();
         try {
             retorno.setVersaoTISS("3.05.00");
-            final RespostaAutorizacaoProcedimentoWSI respostaSolicitacao = clientWS.chamarWS(solicitacaoProcedimento, PedidoSolicitacaoProcedimentoWSI.class, "3.05.00");
-            retorno.setSucesso(true);
+            final AutorizacaoProcedimentoWS respostaSolicitacao = clientWS.chamarWS(solicitacaoProcedimento, SolicitacaoProcedimentoWS.class, "3.05.00");
+            if (respostaSolicitacao.getAutorizacaoProcedimento() != null && respostaSolicitacao.getAutorizacaoProcedimento().getMensagemErro() != null) {
+                retorno.setSucesso(false);
+            }
             retorno.setRetornoSolicitacaoProcedimento(respostaSolicitacao);
         } catch (Throwable re) {
             preencherRetorno(retorno, re);
@@ -25,7 +27,7 @@ public class SolicitacaoProcedimentoService {
         return retorno;
     }
 
-    private void preencherRetorno(SolicitacaoProcedimentoResponseModel<RespostaAutorizacaoProcedimentoWSI> retorno, Throwable e) {
+    private void preencherRetorno(SolicitacaoProcedimentoResponseModel<AutorizacaoProcedimentoWS> retorno, Throwable e) {
         e.setStackTrace(tratarStackTrace(e));
         retorno.setSucesso(false);
         retorno.setErro(e);

@@ -1,7 +1,7 @@
 package br.com.spintec.wstiss.core.api;
 
 import br.com.spintec.wstiss.core.config.InterfaceTissWS;
-import br.gov.ans.padroes.tiss.schemas.api.CabecalhoTransacaoTISSI;
+import br.gov.ans.padroes.tiss.schemas.v30500.CabecalhoTransacao;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.message.Message;
@@ -15,10 +15,10 @@ public class TissWSCaller<PortType, Response> {
     private static final String FORCE_START_DOCUMENT = "org.apache.cxf.stax.force-start-document";
     private static final String ENCODING = "ISO-8859-1";
 
-    public Response chamarWS(Class<PortType> portTypeClass, CabecalhoTransacaoTISSI cabecalho, String urlService, String urlWSDLDocumentLocation,
+    public Response chamarWS(Class<PortType> portTypeClass, CabecalhoTransacao cabecalho, String urlService, String urlWSDLDocumentLocation,
                              QName serviceName, QName portName, InterfaceTissWS<PortType, Response> function) throws Throwable {
 
-        return executeWSCall(portTypeClass, urlService, urlWSDLDocumentLocation, serviceName, portName, function, cabecalho.getNrANSDestino());
+        return executeWSCall(portTypeClass, urlService, urlWSDLDocumentLocation, serviceName, portName, function, cabecalho.getDestino().getRegistroANS());
     }
 
 

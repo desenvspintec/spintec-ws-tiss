@@ -3,7 +3,6 @@ package br.com.spintec.wstiss.core.builder;
 import br.com.spintec.wstiss.annotation.TissVersion;
 import br.com.spintec.wstiss.annotation.TissVersionQualifier;
 import br.com.spintec.wstiss.exception.BuilderException;
-import br.gov.ans.padroes.tiss.schemas.api.MensagemTissWSI;
 import lombok.extern.slf4j.Slf4j;
 import org.reflections.Reflections;
 
@@ -15,7 +14,7 @@ import java.util.Set;
 public class MensagemTissWsBuilderFactory {
 
     @SuppressWarnings("unchecked")
-    public <MensagemWS, MensagemObj> MensagemTissWSBuilder<MensagemWS, MensagemObj> getBuilder(Class<? extends MensagemTissWSI> tipoMensagem,
+    public <MensagemWS, MensagemObj> MensagemTissWSBuilder<MensagemWS, MensagemObj> getBuilder(Class<?> tipoMensagem,
                                                                                                String versao) {
         final List<MensagemTissWSBuilder<?, ?>> selected = select(new TissVersionQualifier(tipoMensagem, versao));
 

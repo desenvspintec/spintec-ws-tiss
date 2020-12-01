@@ -2,13 +2,9 @@ package br.com.spintec.wstiss.utils.tiss;
 
 import br.com.spintec.wstiss.model.IdentificacaoPrestadorModel;
 import br.com.spintec.wstiss.utils.DateUtils;
-import br.gov.ans.padroes.tiss.schemas.CabecalhoTransacao;
-import br.gov.ans.padroes.tiss.schemas.CabecalhoTransacao.Destino;
-import br.gov.ans.padroes.tiss.schemas.CabecalhoTransacao.IdentificacaoTransacao;
-import br.gov.ans.padroes.tiss.schemas.CabecalhoTransacao.Origem;
-import br.gov.ans.padroes.tiss.schemas.CabecalhoTransacao.Origem.IdentificacaoPrestador;
-import br.gov.ans.padroes.tiss.schemas.CtPrestadorIdentificacao;
-import br.gov.ans.padroes.tiss.schemas.DmTipoTransacao;
+import br.gov.ans.padroes.tiss.schemas.v30500.CabecalhoTransacao;
+import br.gov.ans.padroes.tiss.schemas.v30500.CtPrestadorIdentificacao;
+import br.gov.ans.padroes.tiss.schemas.v30500.DmTipoTransacao;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.Date;
@@ -37,8 +33,8 @@ public class CabecalhoTransacaoBuilder {
         return cabecalho;
     }
 
-    private IdentificacaoTransacao criarIdentificacaoTransacao(Optional<String> sequencialTransacaoOpt, DmTipoTransacao tipoTransacao) {
-        final IdentificacaoTransacao identificacaoTransacao = new IdentificacaoTransacao();
+    private CabecalhoTransacao.IdentificacaoTransacao criarIdentificacaoTransacao(Optional<String> sequencialTransacaoOpt, DmTipoTransacao tipoTransacao) {
+        final CabecalhoTransacao.IdentificacaoTransacao identificacaoTransacao = new CabecalhoTransacao.IdentificacaoTransacao();
         identificacaoTransacao.setSequencialTransacao(
                 sequencialTransacaoOpt.map(seq -> String.format("%.12s", seq)).orElse(String.format("%.12s", System.currentTimeMillis())));
         identificacaoTransacao.setTipoTransacao(tipoTransacao);
@@ -50,8 +46,8 @@ public class CabecalhoTransacaoBuilder {
         return identificacaoTransacao;
     }
 
-    private IdentificacaoPrestador criarIdentificacaoPrestador(IdentificacaoPrestadorModel identificacao) {
-        final IdentificacaoPrestador identificadorPrestador = new IdentificacaoPrestador();
+    private CabecalhoTransacao.Origem.IdentificacaoPrestador criarIdentificacaoPrestador(IdentificacaoPrestadorModel identificacao) {
+        final CabecalhoTransacao.Origem.IdentificacaoPrestador identificadorPrestador = new CabecalhoTransacao.Origem.IdentificacaoPrestador();
 
         comumBuilder.definirIdentificacaoPrestador(identificacao, identificadorPrestador::setCodigoPrestadorNaOperadora,
                 identificadorPrestador::setCPF, identificadorPrestador::setCNPJ);
@@ -68,15 +64,15 @@ public class CabecalhoTransacaoBuilder {
         return identificadorPrestador;
     }
 
-    private Origem criarOrigem(String registroAnsOperadora, Optional<IdentificacaoPrestadorModel> identificacaoOpt) {
-        final Origem origem = new Origem();
+    private CabecalhoTransacao.Origem criarOrigem(String registroAnsOperadora, Optional<IdentificacaoPrestadorModel> identificacaoOpt) {
+        final CabecalhoTransacao.Origem origem = new CabecalhoTransacao.Origem();
         origem.setRegistroANS(formatarRegistroAns(registroAnsOperadora));
         identificacaoOpt.map(this::criarIdentificacaoPrestador).ifPresent(origem::setIdentificacaoPrestador);
         return origem;
     }
 
-    private Destino criarDestino(String registroAnsOperadora, Optional<IdentificacaoPrestadorModel> identificacaoOpt) {
-        final Destino destino = new Destino();
+    private CabecalhoTransacao.Destino criarDestino(String registroAnsOperadora, Optional<IdentificacaoPrestadorModel> identificacaoOpt) {
+        final CabecalhoTransacao.Destino destino = new CabecalhoTransacao.Destino();
         destino.setRegistroANS(formatarRegistroAns(registroAnsOperadora));
         identificacaoOpt.map(this::criarCtPrestadorIdentificacao).ifPresent(destino::setIdentificacaoPrestador);
         return destino;

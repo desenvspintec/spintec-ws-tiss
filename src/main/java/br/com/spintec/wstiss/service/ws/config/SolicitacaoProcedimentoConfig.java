@@ -4,17 +4,16 @@ import br.com.spintec.wstiss.annotation.TissVersion;
 import br.com.spintec.wstiss.core.config.Configuration;
 import br.com.spintec.wstiss.core.config.InterfaceTissWS;
 import br.com.spintec.wstiss.core.config.MensagemTissWSConfig;
-import br.gov.ans.padroes.tiss.schemas.api.PedidoSolicitacaoProcedimentoWSI;
-import br.gov.ans.padroes.tiss.schemas.api.RespostaAutorizacaoProcedimentoWSI;
-import br.gov.ans.padroes.tiss.schemas.SolicitacaoProcedimentoWS;
+import br.gov.ans.padroes.tiss.schemas.v30500.AutorizacaoProcedimentoWS;
+import br.gov.ans.padroes.tiss.schemas.v30500.SolicitacaoProcedimentoWS;
 import br.gov.ans.tiss.ws.tipos.tisssolicitacaoprocedimento.v30500.TissFault;
 import br.gov.ans.tiss.ws.tipos.tisssolicitacaoprocedimento.v30500.TissSolicitacaoProcedimentoPortType;
 
 import javax.xml.namespace.QName;
 
-@TissVersion(tipoMensagem = PedidoSolicitacaoProcedimentoWSI.class, versao = "3.05.00")
+@TissVersion(tipoMensagem = SolicitacaoProcedimentoWS.class, versao = "3.05.00")
 public class SolicitacaoProcedimentoConfig
-        implements MensagemTissWSConfig<TissSolicitacaoProcedimentoPortType, RespostaAutorizacaoProcedimentoWSI, PedidoSolicitacaoProcedimentoWSI> {
+        implements MensagemTissWSConfig<TissSolicitacaoProcedimentoPortType, AutorizacaoProcedimentoWS, SolicitacaoProcedimentoWS> {
 
     private String urlWs = Configuration.getWsUrl("/tissSolicitacaoProcedimento");
 
@@ -47,7 +46,7 @@ public class SolicitacaoProcedimentoConfig
     }
 
     @Override
-    public InterfaceTissWS<TissSolicitacaoProcedimentoPortType, RespostaAutorizacaoProcedimentoWSI> getCallerFunciton(PedidoSolicitacaoProcedimentoWSI mensagemTissWSI) {
+    public InterfaceTissWS<TissSolicitacaoProcedimentoPortType, AutorizacaoProcedimentoWS> getCallerFunciton(SolicitacaoProcedimentoWS mensagemTissWSI) {
         return caller -> {
             try {
                 return caller.tissSolicitacaoProcedimentoOperation((SolicitacaoProcedimentoWS) mensagemTissWSI);
