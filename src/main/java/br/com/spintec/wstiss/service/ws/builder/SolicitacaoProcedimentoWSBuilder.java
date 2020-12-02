@@ -7,6 +7,7 @@ import br.com.spintec.wstiss.model.SolicitacaoProcedimentoModel;
 import br.com.spintec.wstiss.utils.CalculoHash;
 import br.com.spintec.wstiss.utils.tiss.CabecalhoTransacaoBuilder;
 import br.gov.ans.padroes.tiss.schemas.v30500.*;
+import br.gov.ans.padroes.tiss.schemas.v30500.custom.CtPrestadorParaOperadora;
 import com.google.common.base.Strings;
 
 import java.util.ArrayList;
@@ -26,8 +27,8 @@ public class SolicitacaoProcedimentoWSBuilder implements MensagemTissWSBuilder<S
         final CabecalhoTransacao cabecalho = criarCabecalho(solicitacaoProcedimento);
         solicitacaoProcedimentoWS.setCabecalho(cabecalho);
 
-        final CtSolicitacaoProcedimento corpo = criarCorpo(solicitacaoProcedimento);
-        solicitacaoProcedimentoWS.setSolicitacaoProcedimento(corpo);
+        final CtPrestadorParaOperadora corpo = criarCorpo(solicitacaoProcedimento);
+        solicitacaoProcedimentoWS.setPrestadorParaOperadora(corpo);
 
         final String hash = CalculoHash.getHashFromObject(solicitacaoProcedimentoWS);
         solicitacaoProcedimentoWS.setHash(hash);
@@ -39,7 +40,8 @@ public class SolicitacaoProcedimentoWSBuilder implements MensagemTissWSBuilder<S
                 solicitacaoProcedimentoModel.getNumeroANS(), Optional.ofNullable(solicitacaoProcedimentoModel.getIdentificacaoPrestador()), false);
     }
 
-    private CtSolicitacaoProcedimento criarCorpo(SolicitacaoProcedimentoModel solicitacaoProcedimentoModel) {
+    private CtPrestadorParaOperadora criarCorpo(SolicitacaoProcedimentoModel solicitacaoProcedimentoModel) {
+        final CtPrestadorParaOperadora ctPrestadorParaOperadora = new CtPrestadorParaOperadora();
         final CtSolicitacaoProcedimento corpo = new CtSolicitacaoProcedimento();
 
         CtContratadoDados ctContratadoDados = new CtContratadoDados();
@@ -81,8 +83,9 @@ public class SolicitacaoProcedimentoWSBuilder implements MensagemTissWSBuilder<S
         ctmSpSadtSolicitacaoGuia.setNumeroGuiaPrincipal(solicitacaoProcedimentoModel.getNumeroGuiaPrestador());
 
         corpo.setSolicitacaoSPSADT(ctmSpSadtSolicitacaoGuia);
+        ctPrestadorParaOperadora.setSolicitacaoProcedimento(corpo);
 
-        return corpo;
+        return ctPrestadorParaOperadora;
     }
 
     private CtContratadoDados criarContratadoDados(IdentificacaoPrestadorModel identificacao, String registroAns) {

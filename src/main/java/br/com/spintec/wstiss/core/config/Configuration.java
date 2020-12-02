@@ -8,6 +8,9 @@ public class Configuration {
         if (wsUrl.endsWith("/")) {
             wsUrl = wsUrl.substring(0, wsUrl.length() - 1);
         }
-        return wsUrl + "/" + uri;
+        if (!uri.startsWith("/")) {
+            uri = "/" + uri;
+        }
+        return wsUrl + uri;
     }
 }
