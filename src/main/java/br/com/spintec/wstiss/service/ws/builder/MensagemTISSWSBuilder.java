@@ -7,7 +7,6 @@ import br.com.spintec.wstiss.model.SolicitacaoProcedimentoModel;
 import br.com.spintec.wstiss.utils.CalculoHash;
 import br.com.spintec.wstiss.utils.tiss.CabecalhoTransacaoBuilder;
 import br.gov.ans.padroes.tiss.schemas.v30500.*;
-import br.gov.ans.padroes.tiss.schemas.v30500.custom.CtPrestadorParaOperadora;
 import com.google.common.base.Strings;
 
 import java.util.ArrayList;
@@ -15,24 +14,26 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-@TissVersion(tipoMensagem = SolicitacaoProcedimentoWS.class, versao = "3.05.00")
-public class SolicitacaoProcedimentoWSBuilder implements MensagemTissWSBuilder<SolicitacaoProcedimentoWS, SolicitacaoProcedimentoModel> {
+@TissVersion(tipoMensagem = MensagemTISS.class, versao = "3.05.00")
+public class MensagemTISSWSBuilder implements MensagemTissWSBuilder<MensagemTISS, SolicitacaoProcedimentoModel> {
 
     private final CabecalhoTransacaoBuilder cabecalhoBuilder = new CabecalhoTransacaoBuilder();
 
     @Override
-    public SolicitacaoProcedimentoWS builder(SolicitacaoProcedimentoModel solicitacaoProcedimento) {
-        final SolicitacaoProcedimentoWS solicitacaoProcedimentoWS = new SolicitacaoProcedimentoWS();
+    public MensagemTISS builder(SolicitacaoProcedimentoModel solicitacaoProcedimento) {
+        final MensagemTISS mensagemTISS = new MensagemTISS();
 
         final CabecalhoTransacao cabecalho = criarCabecalho(solicitacaoProcedimento);
-        solicitacaoProcedimentoWS.setCabecalho(cabecalho);
+        mensagemTISS.setCabecalho(cabecalho);
 
-        final CtPrestadorParaOperadora corpo = criarCorpo(solicitacaoProcedimento);
-        solicitacaoProcedimentoWS.setPrestadorParaOperadora(corpo);
+        final PrestadorOperadora corpo = criarCorpo(solicitacaoProcedimento);
+        mensagemTISS.setPrestadorParaOperadora(corpo);
 
-        final String hash = CalculoHash.getHashFromObject(solicitacaoProcedimentoWS);
-        solicitacaoProcedimentoWS.setHash(hash);
-        return solicitacaoProcedimentoWS;
+        final String hash = CalculoHash.getHashFromObject(mensagemTISS);
+        Epilogo epilogo = new Epilogo();
+        epilogo.setHash(hash);
+        mensagemTISS.setEpilogo(epilogo);
+        return mensagemTISS;
     }
 
     private CabecalhoTransacao criarCabecalho(SolicitacaoProcedimentoModel solicitacaoProcedimentoModel) {
@@ -40,8 +41,8 @@ public class SolicitacaoProcedimentoWSBuilder implements MensagemTissWSBuilder<S
                 solicitacaoProcedimentoModel.getNumeroANS(), Optional.ofNullable(solicitacaoProcedimentoModel.getIdentificacaoPrestador()), false);
     }
 
-    private CtPrestadorParaOperadora criarCorpo(SolicitacaoProcedimentoModel solicitacaoProcedimentoModel) {
-        final CtPrestadorParaOperadora ctPrestadorParaOperadora = new CtPrestadorParaOperadora();
+    private PrestadorOperadora criarCorpo(SolicitacaoProcedimentoModel solicitacaoProcedimentoModel) {
+        final PrestadorOperadora ctPrestadorParaOperadora = new PrestadorOperadora();
         final CtSolicitacaoProcedimento corpo = new CtSolicitacaoProcedimento();
 
         CtContratadoDados ctContratadoDados = new CtContratadoDados();
@@ -80,7 +81,8 @@ public class SolicitacaoProcedimentoWSBuilder implements MensagemTissWSBuilder<S
         ctmSpSadtSolicitacaoGuia.getProcedimentosSolicitados().addAll(spSadtProcedimentos);
         ctmSpSadtSolicitacaoGuia.setDadosExecutante(solicitacaoProcedimentoModel.getDadosExecutante());
         ctmSpSadtSolicitacaoGuia.setCabecalhoSolicitacao(ctGuiaCabecalho);
-        ctmSpSadtSolicitacaoGuia.setNumeroGuiaPrincipal(solicitacaoProcedimentoModel.getNumeroGuiaPrestador());
+        /*ctmSpSadtSolicitacaoGuia.setNumeroGuiaPrincipal(solicitacaoProcedimentoModel.getNumeroGuiaPrestador());*/
+        ctmSpSadtSolicitacaoGuia.setTipoEtapaAutorizacao("2");
 
         corpo.setSolicitacaoSPSADT(ctmSpSadtSolicitacaoGuia);
         ctPrestadorParaOperadora.setSolicitacaoProcedimento(corpo);

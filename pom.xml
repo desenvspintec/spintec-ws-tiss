@@ -4,13 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.spintec</groupId>
 	<artifactId>ws-tiss</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>wstiss</name>
 	<description>Execute tiss communication through spring methods.</description>
 
 	<properties>
 		<java.version>11</java.version>
-		<cxf.version>2.2.3</cxf.version>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 	</properties>
 
 	<dependencies>
@@ -28,14 +29,7 @@
 		<dependency>
 			<groupId>br.com.spintec</groupId>
 			<artifactId>spintec-tiss</artifactId>
-			<version>1.0.5</version>
-			<scope>system</scope>
-			<systemPath>D:/projects/spintec/spintec-tiss/target/spintec-tiss-1.0.5.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-frontend-jaxws</artifactId>
-			<version>${cxf.version}</version>
+			<version>1.0.6</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jdom</groupId>
@@ -58,28 +52,39 @@
 			<artifactId>reflections</artifactId>
 			<version>0.9.12</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/javax.xml.ws/jaxws-api -->
 		<dependency>
-			<groupId>javax.xml.ws</groupId>
-			<artifactId>jaxws-api</artifactId>
-			<version>2.3.1</version>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20160212</version>
 		</dependency>
-
 	</dependencies>
 
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>ws-tiss</name>
+			<url>https://maven.pkg.github.com/marcelorafaelfeil/ws-tiss</url>
+		</repository>
+	</distributionManagement>
+
 	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.8.1</version>
-					<configuration>
-						<source>11</source>
-						<target>11</target>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 	</build>
 </project>

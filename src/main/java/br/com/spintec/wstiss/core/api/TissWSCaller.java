@@ -16,14 +16,14 @@ public class TissWSCaller<PortType, Response> {
     private static final String ENCODING = "ISO-8859-1";
 
     public Response chamarWS(Class<PortType> portTypeClass, CabecalhoTransacao cabecalho, String urlService, String urlWSDLDocumentLocation,
-                             QName serviceName, QName portName, InterfaceTissWS<PortType, Response> function) throws Throwable {
+                             QName serviceName, QName portName, InterfaceTissWS<PortType, Response> function) throws Exception {
 
         return executeWSCall(portTypeClass, urlService, urlWSDLDocumentLocation, serviceName, portName, function, cabecalho.getDestino().getRegistroANS());
     }
 
 
     private Response executeWSCall(Class<PortType> portTypeClass, String urlService, String urlWSDLDocumentLocation, QName serviceName,
-                                   QName portName, InterfaceTissWS<PortType, Response> function, String registroAns) throws Throwable {
+                                   QName portName, InterfaceTissWS<PortType, Response> function, String registroAns) throws Exception {
         Response ret = null;
 
         final Service service = createService(urlWSDLDocumentLocation, serviceName);
@@ -37,7 +37,7 @@ public class TissWSCaller<PortType, Response> {
     }
 
 
-    protected Service createService(String urlWSDLDocumentLocation, QName serviceName) throws Throwable {
+    protected Service createService(String urlWSDLDocumentLocation, QName serviceName) throws Exception {
         final URL wsdlURL = new URL(urlWSDLDocumentLocation);
         Service service = Service.create(wsdlURL, serviceName);
         return service;

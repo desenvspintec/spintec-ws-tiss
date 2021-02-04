@@ -6,6 +6,7 @@ import lombok.Data;
 public class SolicitacaoProcedimentoResponseModel<RetornoSolicitacaoProcedimento> {
     private String versaoTISS;
     private boolean sucesso;
-    private Throwable erro;
+    private Exception erro;
+    private String message;
     private RetornoSolicitacaoProcedimento retornoSolicitacaoProcedimento;
 }

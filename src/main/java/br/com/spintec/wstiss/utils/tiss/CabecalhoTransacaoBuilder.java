@@ -66,7 +66,7 @@ public class CabecalhoTransacaoBuilder {
 
     private CabecalhoTransacao.Origem criarOrigem(String registroAnsOperadora, Optional<IdentificacaoPrestadorModel> identificacaoOpt) {
         final CabecalhoTransacao.Origem origem = new CabecalhoTransacao.Origem();
-        origem.setRegistroANS(formatarRegistroAns(registroAnsOperadora));
+        // origem.setRegistroANS(formatarRegistroAns(registroAnsOperadora));
         identificacaoOpt.map(this::criarIdentificacaoPrestador).ifPresent(origem::setIdentificacaoPrestador);
         return origem;
     }
@@ -74,7 +74,7 @@ public class CabecalhoTransacaoBuilder {
     private CabecalhoTransacao.Destino criarDestino(String registroAnsOperadora, Optional<IdentificacaoPrestadorModel> identificacaoOpt) {
         final CabecalhoTransacao.Destino destino = new CabecalhoTransacao.Destino();
         destino.setRegistroANS(formatarRegistroAns(registroAnsOperadora));
-        identificacaoOpt.map(this::criarCtPrestadorIdentificacao).ifPresent(destino::setIdentificacaoPrestador);
+        // identificacaoOpt.map(this::criarCtPrestadorIdentificacao).ifPresent(destino::setIdentificacaoPrestador);
         return destino;
     }
 
