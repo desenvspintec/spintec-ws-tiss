@@ -5,17 +5,18 @@ import br.com.spintec.wstiss.model.SolicitacaoProcedimentoModel;
 import br.com.spintec.wstiss.model.response.SolicitacaoProcedimentoResponseModel;
 import br.gov.ans.padroes.tiss.schemas.v30500.AutorizacaoProcedimentoWS;
 import br.gov.ans.padroes.tiss.schemas.v30500.MensagemTISS;
+import br.gov.ans.padroes.tiss.schemas.v30500.SolicitacaoProcedimentoWS;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class SolicitacaoProcedimentoService {
-    private TissWsClient<MensagemTISS, SolicitacaoProcedimentoModel, AutorizacaoProcedimentoWS> clientWS = new TissWsClient<>();
+    private TissWsClient<SolicitacaoProcedimentoWS, SolicitacaoProcedimentoModel, AutorizacaoProcedimentoWS> clientWS = new TissWsClient<>();
 
     public SolicitacaoProcedimentoResponseModel<AutorizacaoProcedimentoWS> enviarSolicitacao(SolicitacaoProcedimentoModel solicitacaoProcedimento) throws Exception {
         SolicitacaoProcedimentoResponseModel<AutorizacaoProcedimentoWS> retorno = new SolicitacaoProcedimentoResponseModel<>();
         retorno.setVersaoTISS("3.05.00");
-        final AutorizacaoProcedimentoWS respostaSolicitacao = clientWS.chamarWS(solicitacaoProcedimento, MensagemTISS.class, "3.05.00");
+        final AutorizacaoProcedimentoWS respostaSolicitacao = clientWS.chamarWS(solicitacaoProcedimento, SolicitacaoProcedimentoWS.class, "3.05.00");
         if (respostaSolicitacao.getAutorizacaoProcedimento() != null && respostaSolicitacao.getAutorizacaoProcedimento().getMensagemErro() != null) {
             retorno.setSucesso(false);
         }

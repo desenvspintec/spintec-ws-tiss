@@ -8,10 +8,11 @@ import br.com.spintec.wstiss.core.config.MensagemTissWSConfig;
 import br.com.spintec.wstiss.core.config.MensagemTissWSConfigFactory;
 import br.gov.ans.padroes.tiss.schemas.v30500.CabecalhoTransacao;
 import br.gov.ans.padroes.tiss.schemas.v30500.ISolicitacao;
+import br.gov.ans.padroes.tiss.schemas.v30500.PedidoSolicitacaoProcedimentoWSI;
 
 import java.util.Optional;
 
-public class TissWsClient<MensagemWS extends ISolicitacao, MensagemObj, Response> {
+public class TissWsClient<MensagemWS extends PedidoSolicitacaoProcedimentoWSI, MensagemObj, Response> {
 
     private final MensagemTissWsBuilderFactory builderFactory = new MensagemTissWsBuilderFactory();
 
@@ -38,7 +39,7 @@ public class TissWsClient<MensagemWS extends ISolicitacao, MensagemObj, Response
         final String wsUrl = conf.getUrlWs();
         final String wsdlUrl = conf.getUrlWsdl();
 
-        return customWSCaller.send(wsdlUrl, mensagemTiss);
+        return customWSCaller.send(wsUrl, mensagemTiss);
 
         /*return wsCaller.chamarWS(conf.getTissPortTypeClass(), cabecalho, wsUrl, wsdlUrl, conf.getServiceName(), conf.getPortName(),
                 conf.getCallerFunciton(mensagemTiss));*/

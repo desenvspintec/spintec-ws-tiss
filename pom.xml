@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.spintec</groupId>
 	<artifactId>ws-tiss</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.1.3-SNAPSHOT</version>
 	<name>wstiss</name>
 	<description>Execute tiss communication through spring methods.</description>
 
@@ -29,7 +29,7 @@
 		<dependency>
 			<groupId>br.com.spintec</groupId>
 			<artifactId>spintec-tiss</artifactId>
-			<version>1.0.6</version>
+			<version>1.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jdom</groupId>
@@ -50,7 +50,7 @@
 		<dependency>
 			<groupId>org.reflections</groupId>
 			<artifactId>reflections</artifactId>
-			<version>0.9.12</version>
+			<version>0.9.9</version>
 		</dependency>
 		<dependency>
 			<groupId>org.json</groupId>
@@ -64,7 +64,7 @@
 		<repository>
 			<id>github</id>
 			<name>ws-tiss</name>
-			<url>https://maven.pkg.github.com/marcelorafaelfeil/ws-tiss</url>
+			<url>https://maven.pkg.github.com/marcelorafaelfeil/spintec-ws-tiss</url>
 		</repository>
 	</distributionManagement>
 
@@ -72,15 +72,18 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.0.0</version>
+				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
 				</configuration>
 				<executions>
 					<execution>
+						<id>make-assembly</id>
 						<phase>package</phase>
 						<goals>
-							<goal>shade</goal>
+							<goal>single</goal>
 						</goals>
 					</execution>
 				</executions>

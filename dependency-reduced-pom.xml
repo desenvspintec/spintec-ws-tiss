@@ -4,7 +4,7 @@
   <groupId>br.com.spintec</groupId>
   <artifactId>ws-tiss</artifactId>
   <name>wstiss</name>
-  <version>0.0.2-SNAPSHOT</version>
+  <version>0.0.3-SNAPSHOT</version>
   <description>Execute tiss communication through spring methods.</description>
   <build>
     <plugins>
@@ -23,6 +23,13 @@
       </plugin>
     </plugins>
   </build>
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>ws-tiss</name>
+      <url>https://maven.pkg.github.com/marcelorafaelfeil/spintec-ws-tiss</url>
+    </repository>
+  </distributionManagement>
   <properties>
     <maven.compiler.target>11</maven.compiler.target>
     <java.version>11</java.version>
