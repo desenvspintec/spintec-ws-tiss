@@ -12,6 +12,7 @@ public class SolicitacaoProcedimentoModel {
     private String sequencialTransacao;
     private String numeroANS;
     private String numeroGuiaPrestador;
+    private String numeroGuiaPrincipal;
     private IdentificacaoPrestadorModel identificacaoPrestador;
     private BeneficiarioModel beneficiario;
     private CtContratadoProfissionalDados ctContratadoProfissionalDados;
