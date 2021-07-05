@@ -78,7 +78,15 @@ public class SolicitacaoProcedimentoWSBuilder implements MensagemTissWSBuilder<S
         ctmSpSadtSolicitacaoGuia.getProcedimentosSolicitados().addAll(spSadtProcedimentos);
         ctmSpSadtSolicitacaoGuia.setDadosExecutante(solicitacaoProcedimentoModel.getDadosExecutante());
         ctmSpSadtSolicitacaoGuia.setCabecalhoSolicitacao(ctGuiaCabecalho);
-        ctmSpSadtSolicitacaoGuia.setNumeroGuiaPrincipal(solicitacaoProcedimentoModel.getNumeroGuiaPrincipal());
+		/*
+		 * if (solicitacaoProcedimentoModel.getNumeroGuiaPrincipal() != null &&
+		 * (!solicitacaoProcedimentoModel.getNumeroGuiaPrincipal().isEmpty())) {
+		 * ctmSpSadtSolicitacaoGuia.setNumeroGuiaPrincipal(solicitacaoProcedimentoModel.
+		 * getNumeroGuiaPrincipal()); } else {
+		 * ctmSpSadtSolicitacaoGuia.setNumeroGuiaPrincipal(solicitacaoProcedimentoModel.
+		 * getNumeroGuiaPrestador()); }
+		 */
+        ctmSpSadtSolicitacaoGuia.setTipoEtapaAutorizacao("2");
 
         corpo.setSolicitacaoSPSADT(ctmSpSadtSolicitacaoGuia);
 

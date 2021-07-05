@@ -8,6 +8,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import br.com.spintec.wstiss.model.IdentificacaoPrestadorModel;
 import br.com.spintec.wstiss.utils.DateUtils;
 import br.gov.ans.padroes.tiss.schemas.v30500.CabecalhoTransacao;
+import br.gov.ans.padroes.tiss.schemas.v30500.CtPrestadorIdentificacao;
 import br.gov.ans.padroes.tiss.schemas.v30500.DmTipoTransacao;
 
 public class CabecalhoTransacaoBuilder {
@@ -74,5 +75,14 @@ public class CabecalhoTransacaoBuilder {
             return String.format("%06d", Integer.parseInt(registroAnsOperadora));
         }
         return null;
+    }
+ 
+    private CtPrestadorIdentificacao criarCtPrestadorIdentificacao(IdentificacaoPrestadorModel identificacao) {
+        final CtPrestadorIdentificacao identificadorPrestador = new CtPrestadorIdentificacao();
+
+        comumBuilder.definirIdentificacaoPrestador(identificacao, identificadorPrestador::setCodigoPrestadorNaOperadora,
+                identificadorPrestador::setCPF, identificadorPrestador::setCNPJ);
+
+        return identificadorPrestador;
     }
 }
