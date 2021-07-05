@@ -61,7 +61,7 @@ public class MensagemTISSWSBuilder implements MensagemTissWSBuilder<MensagemTISS
         CtGuiaCabecalho ctGuiaCabecalho = new CtGuiaCabecalho();
         ctGuiaCabecalho.setRegistroANS(solicitacaoProcedimentoModel.getNumeroANS());
         ctGuiaCabecalho.setNumeroGuiaPrestador(solicitacaoProcedimentoModel.getNumeroGuiaPrestador());
-
+        
         CtProcedimentoDados ctProcedimentoDados = new CtProcedimentoDados();
 
         CtmSpSadtSolicitacaoGuia.ProcedimentosSolicitados procedimentosSolicitados = new CtmSpSadtSolicitacaoGuia.ProcedimentosSolicitados();
@@ -81,7 +81,7 @@ public class MensagemTISSWSBuilder implements MensagemTissWSBuilder<MensagemTISS
         ctmSpSadtSolicitacaoGuia.getProcedimentosSolicitados().addAll(spSadtProcedimentos);
         ctmSpSadtSolicitacaoGuia.setDadosExecutante(solicitacaoProcedimentoModel.getDadosExecutante());
         ctmSpSadtSolicitacaoGuia.setCabecalhoSolicitacao(ctGuiaCabecalho);
-        /*ctmSpSadtSolicitacaoGuia.setNumeroGuiaPrincipal(solicitacaoProcedimentoModel.getNumeroGuiaPrestador());*/
+        ctmSpSadtSolicitacaoGuia.setNumeroGuiaPrincipal(solicitacaoProcedimentoModel.getNumeroGuiaPrincipal());
         ctmSpSadtSolicitacaoGuia.setTipoEtapaAutorizacao("2");
 
         corpo.setSolicitacaoSPSADT(ctmSpSadtSolicitacaoGuia);

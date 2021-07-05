@@ -1,14 +1,14 @@
 package br.com.spintec.wstiss.utils.tiss;
 
+import java.util.Date;
+import java.util.Optional;
+
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import br.com.spintec.wstiss.model.IdentificacaoPrestadorModel;
 import br.com.spintec.wstiss.utils.DateUtils;
 import br.gov.ans.padroes.tiss.schemas.v30500.CabecalhoTransacao;
-import br.gov.ans.padroes.tiss.schemas.v30500.CtPrestadorIdentificacao;
 import br.gov.ans.padroes.tiss.schemas.v30500.DmTipoTransacao;
-
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.util.Date;
-import java.util.Optional;
 
 public class CabecalhoTransacaoBuilder {
 
@@ -48,15 +48,6 @@ public class CabecalhoTransacaoBuilder {
 
     private CabecalhoTransacao.Origem.IdentificacaoPrestador criarIdentificacaoPrestador(IdentificacaoPrestadorModel identificacao) {
         final CabecalhoTransacao.Origem.IdentificacaoPrestador identificadorPrestador = new CabecalhoTransacao.Origem.IdentificacaoPrestador();
-
-        comumBuilder.definirIdentificacaoPrestador(identificacao, identificadorPrestador::setCodigoPrestadorNaOperadora,
-                identificadorPrestador::setCPF, identificadorPrestador::setCNPJ);
-
-        return identificadorPrestador;
-    }
-
-    private CtPrestadorIdentificacao criarCtPrestadorIdentificacao(IdentificacaoPrestadorModel identificacao) {
-        final CtPrestadorIdentificacao identificadorPrestador = new CtPrestadorIdentificacao();
 
         comumBuilder.definirIdentificacaoPrestador(identificacao, identificadorPrestador::setCodigoPrestadorNaOperadora,
                 identificadorPrestador::setCPF, identificadorPrestador::setCNPJ);
