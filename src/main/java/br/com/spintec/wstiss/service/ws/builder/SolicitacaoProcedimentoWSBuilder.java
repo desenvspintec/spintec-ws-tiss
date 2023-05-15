@@ -75,6 +75,7 @@ public class SolicitacaoProcedimentoWSBuilder implements MensagemTissWSBuilder<S
         ctmSpSadtSolicitacaoGuia.setDadosSolicitante(dadosSolicitante);
         ctmSpSadtSolicitacaoGuia.setDataSolicitacao(solicitacaoProcedimentoModel.getDataSolicitacao()); // Data em que o profissional está solicitando os procedimentos ou itens assistenciais.
         ctmSpSadtSolicitacaoGuia.setCaraterAtendimento(solicitacaoProcedimentoModel.getCaraterAtendimento()); // (IE_CARATER_INT_TISS) Código do caráter do atendimento, conforme tabela de domínio nº 23.
+        ctmSpSadtSolicitacaoGuia.setIndicacaoClinica(solicitacaoProcedimentoModel.getIndicacaoClinica());
         ctmSpSadtSolicitacaoGuia.getProcedimentosSolicitados().addAll(spSadtProcedimentos);
         ctmSpSadtSolicitacaoGuia.setDadosExecutante(solicitacaoProcedimentoModel.getDadosExecutante());
         ctmSpSadtSolicitacaoGuia.setCabecalhoSolicitacao(ctGuiaCabecalho);

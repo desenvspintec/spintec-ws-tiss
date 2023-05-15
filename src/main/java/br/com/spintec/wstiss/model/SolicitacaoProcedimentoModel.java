@@ -20,6 +20,7 @@ public class SolicitacaoProcedimentoModel {
     private CtmSpSadtSolicitacaoGuia.DadosExecutante dadosExecutante;
     private XMLGregorianCalendar dataSolicitacao;
     private String caraterAtendimento;
+    private String indicacaoClinica;
     List<CtmInternacaoSolicitacaoGuia.ProcedimentosSolicitados> solicitacaoGuiaProcedimentosSolicitadosList = new ArrayList<>();
     List<CtmProrrogacaoSolicitacaoGuia.ProcedimentosAdicionais> prorrogacaoSolicitacaoGuiaProcedimentosList = new ArrayList<>();
     List<CtoOdontoSolicitacaoGuia.ProcedimentosSolicitados> odontoSolicitacaoGuiaProcedimentosList = new ArrayList<>();

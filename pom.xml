@@ -29,7 +29,7 @@
 		<dependency>
 			<groupId>br.com.spintec</groupId>
 			<artifactId>spintec-tiss</artifactId>
-			<version>1.1.1</version>
+			<version>1.1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jdom</groupId>
@@ -64,7 +64,7 @@
 		<repository>
 			<id>github</id>
 			<name>ws-tiss</name>
-			<url>https://maven.pkg.github.com/marcelorafaelfeil/spintec-ws-tiss</url>
+			<url>https://maven.pkg.github.com/desenvspintec/spintec-ws-tiss</url>
 		</repository>
 	</distributionManagement>
 
