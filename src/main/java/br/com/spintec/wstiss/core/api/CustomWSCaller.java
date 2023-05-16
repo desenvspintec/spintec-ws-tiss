@@ -1,5 +1,6 @@
 package br.com.spintec.wstiss.core.api;
 
+import br.gov.ans.padroes.tiss.schemas.v30500.AutorizacaoProcedimentoWS;
 import br.gov.ans.padroes.tiss.schemas.v30500.ISolicitacao;
 import br.gov.ans.padroes.tiss.schemas.v30500.MensagemTISS;
 import br.gov.ans.padroes.tiss.schemas.v30500.PedidoSolicitacaoProcedimentoWSI;
@@ -43,8 +44,19 @@ public class CustomWSCaller<MensagemWS extends PedidoSolicitacaoProcedimentoWSI,
         in.close();
 
         log.info("Response Data: {}", response.toString());
+        final String finalXml = extractXMLResponseContentString(response.toString());
+        log.info("Response Data (Replace): {}", finalXml);
+        return _convertToResponse(finalXml);
 
-        return _convertToResponse(response.toString());
+    }
+
+    private String extractXMLResponseContentString(String xml){
+        String response = xml;
+        response = response.replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "");
+        response = response.replace("<?xml version=\"1.0\" ?>", "");
+        response = response.replace("<S:Envelope xmlns:S=\"http://schemas.xmlsoap.org/soap/envelope/\"><S:Body>", "");
+        response = response.replace("</S:Body></S:Envelope>", "");
+        return response;
     }
 
     private String _convertToParam(MensagemWS message) throws JAXBException, SOAPException, IOException {
@@ -76,6 +88,12 @@ public class CustomWSCaller<MensagemWS extends PedidoSolicitacaoProcedimentoWSI,
 
     @SuppressWarnings("unchecked")
     private Response _convertToResponse(String strResponse) throws JAXBException {
+        final JAXBContext jaxbContext = JAXBContext.newInstance(new Class[] { AutorizacaoProcedimentoWS.class });
+        final Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+        final Response response = (Response)jaxbUnmarshaller.unmarshal(new StringReader(strResponse));
+        return response;
+
+        /*
         JAXBContext jaxbContext = JAXBContext.newInstance((Class<Response>)
                 ((ParameterizedType)getClass()
                         .getGenericSuperclass())
@@ -85,5 +103,6 @@ public class CustomWSCaller<MensagemWS extends PedidoSolicitacaoProcedimentoWSI,
         Response response = (Response)jaxbUnmarshaller.unmarshal(new StringReader(strResponse));
 
         return response;
+         */
     }
 }

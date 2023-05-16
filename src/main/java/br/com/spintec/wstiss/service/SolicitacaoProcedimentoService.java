@@ -16,8 +16,13 @@ public class SolicitacaoProcedimentoService {
     public SolicitacaoProcedimentoResponseModel<AutorizacaoProcedimentoWS> enviarSolicitacao(SolicitacaoProcedimentoModel solicitacaoProcedimento) throws Exception {
         SolicitacaoProcedimentoResponseModel<AutorizacaoProcedimentoWS> retorno = new SolicitacaoProcedimentoResponseModel<>();
         retorno.setVersaoTISS("3.05.00");
+        retorno.setSucesso(true);
         final AutorizacaoProcedimentoWS respostaSolicitacao = clientWS.chamarWS(solicitacaoProcedimento, SolicitacaoProcedimentoWS.class, "3.05.00");
-        if (respostaSolicitacao.getAutorizacaoProcedimento() != null && respostaSolicitacao.getAutorizacaoProcedimento().getMensagemErro() != null) {
+        if (respostaSolicitacao.getAutorizacaoProcedimento() != null
+          && respostaSolicitacao.getAutorizacaoProcedimento().getMensagemErro() != null
+          && respostaSolicitacao.getAutorizacaoProcedimento().getMensagemErro().getCodigoGlosa() != null
+          && respostaSolicitacao.getAutorizacaoProcedimento().getMensagemErro().getCodigoGlosa().toString().length() > 0
+        ) {
             retorno.setSucesso(false);
         }
         retorno.setRetornoSolicitacaoProcedimento(respostaSolicitacao);
