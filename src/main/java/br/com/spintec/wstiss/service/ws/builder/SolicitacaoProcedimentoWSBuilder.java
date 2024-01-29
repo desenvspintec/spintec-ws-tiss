@@ -80,6 +80,7 @@ public class SolicitacaoProcedimentoWSBuilder implements MensagemTissWSBuilder<S
         ctmSpSadtSolicitacaoGuia.setDadosExecutante(solicitacaoProcedimentoModel.getDadosExecutante());
         ctmSpSadtSolicitacaoGuia.setCabecalhoSolicitacao(ctGuiaCabecalho);
         ctmSpSadtSolicitacaoGuia.setTipoEtapaAutorizacao("2");
+        ctmSpSadtSolicitacaoGuia.setNumeroGuiaPrincipal(solicitacaoProcedimentoModel.getNumeroGuiaPrincipal());
 
         corpo.setSolicitacaoSPSADT(ctmSpSadtSolicitacaoGuia);
 

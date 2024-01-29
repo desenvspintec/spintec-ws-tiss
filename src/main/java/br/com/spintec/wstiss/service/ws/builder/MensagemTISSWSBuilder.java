@@ -83,6 +83,7 @@ public class MensagemTISSWSBuilder implements MensagemTissWSBuilder<MensagemTISS
         ctmSpSadtSolicitacaoGuia.setDadosExecutante(solicitacaoProcedimentoModel.getDadosExecutante());
         ctmSpSadtSolicitacaoGuia.setCabecalhoSolicitacao(ctGuiaCabecalho);
         ctmSpSadtSolicitacaoGuia.setTipoEtapaAutorizacao("2");
+        ctmSpSadtSolicitacaoGuia.setNumeroGuiaPrincipal(solicitacaoProcedimentoModel.getNumeroGuiaPrincipal());
 
         corpo.setSolicitacaoSPSADT(ctmSpSadtSolicitacaoGuia);
         ctPrestadorParaOperadora.setSolicitacaoProcedimento(corpo);
